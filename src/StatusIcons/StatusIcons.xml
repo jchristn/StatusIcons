@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatusIcons</name>
+    </assembly>
+    <members>
+        <member name="T:StatusIcons.StatusIcon">
+            <summary>
+            Status icon.
+            </summary>
+        </member>
+        <member name="P:StatusIcons.StatusIcon.Item(System.String)">
+            <summary>
+            Access a specific icon.
+            </summary>
+            <param name="key">Key.</param>
+            <returns>Value.</returns>
+        </member>
+        <member name="P:StatusIcons.StatusIcon.Icons">
+            <summary>
+            Retrieve the backing dictionary.
+            </summary>
+        </member>
+        <member name="P:StatusIcons.StatusIcon.AsciiIcons">
+            <summary>
+            ASCII icons.
+            </summary>
+        </member>
+        <member name="P:StatusIcons.StatusIcon.UnicodeIcons">
+            <summary>
+            Unicode icons.
+            </summary>
+        </member>
+        <member name="P:StatusIcons.StatusIcon.SupportsUnicode">
+            <summary>
+            Check if Unicode is supported.
+            </summary>
+        </member>
+        <member name="M:StatusIcons.StatusIcon.#ctor(System.Boolean)">
+            <summary>
+            Instantiate.
+            </summary>
+        </member>
+        <member name="M:StatusIcons.StatusIcon.TestTerminal">
+            <summary>
+            Test the terminal capabilities and display current settings
+            </summary>
+        </member>
+    </members>
+</doc>
