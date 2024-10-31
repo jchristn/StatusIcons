@@ -1,3 +1,5 @@
+<img src="https://github.com/jchristn/StatusIcons/blob/main/Assets/icon.png?raw=true" height="48">
+
 # StatusIcons
 
 [![NuGet Version](https://img.shields.io/nuget/v/StatusIcons.svg?style=flat)](https://www.nuget.org/packages/StatusIcons/) [![NuGet](https://img.shields.io/nuget/dt/StatusIcons.svg)](https://www.nuget.org/packages/StatusIcons) 
