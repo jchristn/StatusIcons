@@ -9,8 +9,6 @@
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Testing terminal");
-            Console.WriteLine("----------------");
             StatusIcon icon = new StatusIcon();
             icon.TestTerminal();
 
