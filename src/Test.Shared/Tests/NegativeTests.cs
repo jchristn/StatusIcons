@@ -1,7 +1,9 @@
 namespace Test.Shared.Tests
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
     using StatusIcons;
@@ -91,6 +93,38 @@ namespace Test.Shared.Tests
             {
                 StatusIcon icon = new StatusIcon();
                 AssertHelper.Throws<ArgumentNullException>(() => { icon[null] = "x"; }, "icon[null] set");
+                return Task.CompletedTask;
+            }, token).ConfigureAwait(false);
+
+            await runner.RunTestAsync("Indexer get with an empty-string key throws KeyNotFoundException", ct =>
+            {
+                StatusIcon icon = new StatusIcon();
+                AssertHelper.Throws<KeyNotFoundException>(() => { string _ = icon[""]; }, "icon[empty] get");
+                return Task.CompletedTask;
+            }, token).ConfigureAwait(false);
+
+            await runner.RunTestAsync("TestTerminal throws when a Unicode key is missing from the ASCII set", ct =>
+            {
+                StatusIcon icon = new StatusIcon(true);
+                icon.UnicodeIcons = new ConcurrentDictionary<string, string>(
+                    new Dictionary<string, string> { { "OnlyUnicode", "U" } });
+
+                // TestTerminal walks the Unicode set and indexes the ASCII set with the same keys,
+                // so an asymmetric replacement surfaces a KeyNotFoundException. Console output is
+                // redirected so the failure path does not pollute runner output.
+                TextWriter original = Console.Out;
+                StringWriter buffer = new StringWriter();
+                try
+                {
+                    Console.SetOut(buffer);
+                    AssertHelper.Throws<KeyNotFoundException>(
+                        () => icon.TestTerminal(),
+                        "TestTerminal with asymmetric icon sets");
+                }
+                finally
+                {
+                    Console.SetOut(original);
+                }
                 return Task.CompletedTask;
             }, token).ConfigureAwait(false);
         }

@@ -94,6 +94,31 @@ namespace Test.Shared.Tests
                 AssertHelper.AreEqual("S", icon.Icons["Shared"], "Icons[Shared]");
                 return Task.CompletedTask;
             }, token).ConfigureAwait(false);
+
+            await runner.RunTestAsync("Indexer set with forceUnicode true writes only to the Unicode set", ct =>
+            {
+                StatusIcon icon = new StatusIcon(true);
+                icon["Custom"] = "@";
+                AssertHelper.IsTrue(icon.UnicodeIcons.ContainsKey("Custom"), "UnicodeIcons should contain Custom");
+                AssertHelper.IsFalse(icon.AsciiIcons.ContainsKey("Custom"), "AsciiIcons should not contain Custom");
+                return Task.CompletedTask;
+            }, token).ConfigureAwait(false);
+
+            await runner.RunTestAsync("Indexer round-trips a multi-codepoint emoji value", ct =>
+            {
+                StatusIcon icon = new StatusIcon();
+                icon["Speaker"] = "🔊";
+                AssertHelper.AreEqual("🔊", icon["Speaker"], "indexer[Speaker]");
+                return Task.CompletedTask;
+            }, token).ConfigureAwait(false);
+
+            await runner.RunTestAsync("Indexer set with a null value stores and returns null", ct =>
+            {
+                StatusIcon icon = new StatusIcon();
+                icon["Nullable"] = null;
+                AssertHelper.IsNull(icon["Nullable"], "indexer[Nullable]");
+                return Task.CompletedTask;
+            }, token).ConfigureAwait(false);
         }
     }
 }
