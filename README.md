@@ -15,6 +15,9 @@ Have an idea for amending the default set of icons?  Let us know!
 ## New in v1.0.x
 
 - Initial release
+- Targets `net8.0` and `net10.0`
+- Symbol package (`.snupkg`) published alongside the NuGet package
+- Test suite built on Touchstone with console, xUnit, and NUnit runners
 
 ## It's Really Easy...  I Mean, REALLY Easy
 
